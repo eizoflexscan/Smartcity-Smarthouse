@@ -43,7 +43,7 @@ public abstract class SmartHouseApplication {
         for (Class<? extends Application> s : sensors)
             JavaFxHelper.startGui(s.newInstance());
         
-        Thread.sleep(1500);
+        Thread.sleep(2500);
         
         m.getPresenter().getModel().applicationsHandler
             .addApplication(new ApplicationPath(PathType.CLASS_NAME, new Throwable().getStackTrace()[1].getClassName()));
