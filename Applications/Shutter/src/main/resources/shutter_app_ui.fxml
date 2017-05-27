@@ -11,7 +11,7 @@
    <children>
       <Button fx:id="openButton" layoutX="73.0" layoutY="99.0" mnemonicParsing="false" onAction="#openClick" text="Open" />
       <Button fx:id="closeButton" layoutX="176.0" layoutY="99.0" mnemonicParsing="false" onAction="#closeClick" text="Close" />
-      <Button fx:id="autoButton" layoutX="72.0" layoutY="164.0" mnemonicParsing="false" onAction="#toField" prefHeight="25.0" prefWidth="170.0" text="Automatic Scheduling" />
+      <Button fx:id="autoButton" layoutX="72.0" layoutY="164.0" mnemonicParsing="false" onAction="#autoClick" prefHeight="25.0" prefWidth="170.0" text="Automatic Scheduling" />
       <TextField fx:id="fromField" layoutX="73.0" layoutY="210.0" />
       <TextField fx:id="toField" layoutX="73.0" layoutY="257.0" />
       <Text layoutX="28.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From" />

@@ -35,7 +35,7 @@ public class shutterAppGui extends SmartHouseApplication {
 			
 
 		});
-		shuttercntrl = super.setContentView("shutter_app.ui.fxml");
+		shuttercntrl = super.setContentView("shutter_app_ui.fxml");
 	}
 
 	@Override
