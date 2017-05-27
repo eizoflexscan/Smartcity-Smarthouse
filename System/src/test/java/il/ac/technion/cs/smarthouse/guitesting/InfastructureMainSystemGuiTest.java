@@ -4,6 +4,7 @@ package il.ac.technion.cs.smarthouse.guitesting;
 import org.junit.After;
 import org.loadui.testfx.GuiTest;
 
+import il.ac.technion.cs.smarthouse.sensors.shutter.gui.ShutterSensorSimulator;
 import il.ac.technion.cs.smarthouse.sensors.sos.gui.SosSensorSimulator;
 import il.ac.technion.cs.smarthouse.sensors.stove.gui.StoveSensorSimulator;
 import il.ac.technion.cs.smarthouse.sensors.vitals.gui.VitalsSensorSimulator;
@@ -21,6 +22,7 @@ public class InfastructureMainSystemGuiTest extends GuiTest {
     private SosSensorSimulator sosSim;
     private VitalsSensorSimulator vitalsSim;
     private StoveSensorSimulator stoveSim;
+    private ShutterSensorSimulator shutterSim;
 
     @Override protected Parent getRootNode() {
         return this.gui.getRoot();
@@ -33,6 +35,8 @@ public class InfastructureMainSystemGuiTest extends GuiTest {
             sosSim.stop();
         if (stoveSim != null)
             stoveSim.stop();
+        if (shutterSim != null)
+        	shutterSim.stop();
         gui.stop();
         gui.kill();
     }
@@ -71,6 +75,18 @@ public class InfastructureMainSystemGuiTest extends GuiTest {
             try {
                 sosSim = new SosSensorSimulator();
                 sosSim.start(new Stage());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        });
+    }
+    
+    protected void openShutterSensor(){
+        Platform.runLater(() -> {
+            try {
+            	shutterSim = new ShutterSensorSimulator();
+            	shutterSim.start(new Stage());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
