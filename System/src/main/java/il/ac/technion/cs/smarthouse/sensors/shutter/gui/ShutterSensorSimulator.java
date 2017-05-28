@@ -17,10 +17,12 @@ public class ShutterSensorSimulator  extends Application{
     }
 
     @Override public void start(final Stage primaryStage) throws Exception {
-    	ShutterSensor sensor = new ShutterSensor(Random.sensorId(), "iShutter", "127.0.0.1", 40001);
+    	ShutterSensor sensor = new ShutterSensor(Random.sensorId(), "iShutter", "127.0.0.1", 40001,40001);
     	
-    	for (boolean res = false; !res;)
+    	for (boolean res = false; !res;){
             res = sensor.register();
+    	}
+    		
     	
         final Parent root = FXMLLoader.load(getClass().getResource("/sensors/shutter/shutter_ui.fxml"));
         final Scene scene = new Scene(root);

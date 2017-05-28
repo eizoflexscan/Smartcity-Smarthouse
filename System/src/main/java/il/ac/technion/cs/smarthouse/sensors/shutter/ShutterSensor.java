@@ -4,14 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import il.ac.technion.cs.smarthouse.sensors.Sensor;
+import il.ac.technion.cs.smarthouse.sensors.InteractiveSensor;
 
 /** This class represents shutters sensor and contains its logic.
  * @author Alex
  * @since 8.5.17 */
-public class ShutterSensor extends Sensor {
+public class ShutterSensor extends InteractiveSensor {
 
-    public ShutterSensor(String id, String commName, String systemIP, int systemPort) {
-        super(id, commName, systemIP, systemPort);
+    public ShutterSensor(String id, String commName, String systemIP, int systemPort , int instPort) {
+        super(id, commName, systemIP, systemPort, instPort);
     }
     
     
