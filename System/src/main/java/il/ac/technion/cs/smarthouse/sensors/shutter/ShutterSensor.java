@@ -3,7 +3,6 @@ package il.ac.technion.cs.smarthouse.sensors.shutter;
 import java.util.HashMap;
 import java.util.Map;
 
-import il.ac.technion.cs.smarthouse.sensors.Sensor;
 import il.ac.technion.cs.smarthouse.sensors.InteractiveSensor;
 
 /** This class represents shutters sensor and contains its logic.
@@ -13,6 +12,8 @@ public class ShutterSensor extends InteractiveSensor {
 
     public ShutterSensor(String id, String commName, String systemIP, int systemPort , int instPort) {
         super(id, commName, systemIP, systemPort, instPort);
+
+       
     }
     
     
@@ -23,6 +24,7 @@ public class ShutterSensor extends InteractiveSensor {
         data.put("toTime", toTime + "");       
         super.updateSystem(data);
     }
+    
     
 
     @Override public String[] getObservationsNames() {

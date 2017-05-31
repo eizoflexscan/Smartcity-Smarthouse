@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,17 +23,16 @@ import il.ac.technion.cs.smarthouse.networking.messages.UpdateMessage;
  * accordingly.
  * @author Yarden
  * @since 31.3.17 */
+
+/** This class was modified: the inner class InstructionChecker was removed (unnecessary).
+ * added field for timerTask, so there will be only one instance of timer task.
+ * moved the initialization of the timer that runs the timer task in to the c'tor so it will be initiated once! 
+ * @author Alex
+ * @since 31.5.17 */
 public abstract class InteractiveSensor extends Sensor {
     private static Logger log = LoggerFactory.getLogger(InteractiveSensor.class);
-
-    private class InstructionChecker extends TimerTask {
-        InstructionChecker() {}
-
-        @Override public void run() {
-            operate();
-            new Timer().schedule(this, 0, period);
-        }
-    }
+   
+    public TimerTask tTask;
 
     protected int instPort;
     protected Socket instSocket;
@@ -43,9 +43,17 @@ public abstract class InteractiveSensor extends Sensor {
 
     public InteractiveSensor(final String id, final String commName, final String systemIP, final int systemPort, final int instPort) {
         super(id, commName, systemIP, systemPort);
+
         this.instPort = instPort;
         this.handler = null;
-
+        tTask = new TimerTask() {
+			
+			@Override
+			public void run() {
+				operate();				
+			}
+		};
+		new Timer().schedule(tTask,5000, 5000);
         this.sType = SensorType.INTERACTIVE;
     }
 
@@ -55,6 +63,7 @@ public abstract class InteractiveSensor extends Sensor {
      *         <code>false</code> otherwise */
     public boolean registerInstructions() {
         try {
+
             instSocket = new Socket(InetAddress.getByName(systemIP), instPort);
             instOut = new PrintWriter(instSocket.getOutputStream(), true);
             instIn = new BufferedReader(new InputStreamReader(instSocket.getInputStream()));
@@ -77,7 +86,9 @@ public abstract class InteractiveSensor extends Sensor {
      *         otherwise */
     public boolean operate() {
         try {
-            return instIn.ready() && handler.applyInstruction(((UpdateMessage) MessageFactory.create(instIn.readLine())).getData());
+        	boolean isBuffReady = instIn.ready();
+        	return isBuffReady && (isBuffReady
+					&& handler.applyInstruction(((UpdateMessage) MessageFactory.create(instIn.readLine())).getData()));
         } catch (IOException e) {
             log.error("I/O error occurred", e);
             return false;
@@ -89,6 +100,5 @@ public abstract class InteractiveSensor extends Sensor {
      * @param p The polling period, in milliseconds */
     public void pollInstructions(long p) {
         this.period = p;
-        new Timer().schedule(new InstructionChecker(), 0, period);
     }
 }

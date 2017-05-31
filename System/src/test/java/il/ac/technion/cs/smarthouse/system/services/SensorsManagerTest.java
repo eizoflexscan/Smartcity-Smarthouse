@@ -203,7 +203,7 @@ public class SensorsManagerTest {
 
         Map<String, String> instruction = new HashMap<>();
         instruction.put("b", true + "");
-        getRealSensor().instruct(instruction);
+		getRealSensor().instruct(instruction);
 
         Thread.sleep(5000);
         sensor.operate();
