@@ -53,7 +53,7 @@ public abstract class InteractiveSensor extends Sensor {
 				operate();				
 			}
 		};
-		new Timer().schedule(tTask,5000, 5000);
+		new Timer().schedule(tTask,5000, 2000);
         this.sType = SensorType.INTERACTIVE;
     }
 
